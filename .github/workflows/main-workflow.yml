@@ -1,0 +1,16 @@
+name: Main workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-reusable-workflow:
+    name: Trigger reusable workflow
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      environment_name: staging
+      environment_url: https://example.com
+    secrets:
+      SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}

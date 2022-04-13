@@ -1,0 +1,26 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment_name:
+        type: string
+        required: true
+      environment_url:
+        type: string
+        required: true
+    secrets:
+      SAMPLE_SECRET:
+        required: true
+
+jobs:
+  build:
+    name: Trigger reusable workflow
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment_name }}
+      url: ${{ inputs.environment_url }}
+    steps:
+      - name: Echo environment secret
+        run: |
+          echo "SAMPLE_SECRET ${{ secrets.SAMPLE_SECRET }}"
